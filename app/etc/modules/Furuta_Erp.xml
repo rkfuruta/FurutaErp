@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Furuta_Erp>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Furuta_Erp>
+    </modules>
+</config>

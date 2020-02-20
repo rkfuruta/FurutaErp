@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Furuta_Erp>
+            <version>1.0.0.0</version>
+        </Furuta_Erp>
+    </modules>
+    <global>
+        <helpers>
+            <furutaerp>
+                <class>Furuta_Erp_Helper</class>
+            </furutaerp>
+        </helpers>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <furutaerp translate="title" module="furutaerp">
+                                            <title>Furuta Erp Settings</title>
+                                        </furutaerp>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+    	<furutaerp>
+    		<settings>
+	    		<active>1</active>
+	    		<endpoint>/webhook/sales</endpoint>
+	    	</settings>
+    	</furutaerp>
+    </default>
+</config>
