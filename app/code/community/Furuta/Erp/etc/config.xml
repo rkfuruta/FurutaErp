@@ -12,6 +12,22 @@
                 <class>Furuta_Erp_Helper</class>
             </furutaerp>
         </helpers>
+        <models>
+        	<furutaerp>
+                <class>Furuta_Erp_Model</class>
+            </furutaerp>
+        </models>
+        <events>
+			<sales_order_place_after>
+				<observers>
+					<furutaerp_order_observer>
+						<type>model</type>
+						<class>furutaerp/observer</class>
+						<method>send_order</method>
+					</furutaerp_order_observer>
+				</observers>
+			</sales_order_place_after>
+		</events>
     </global>
     <adminhtml>
         <acl>
@@ -39,6 +55,7 @@
     		<settings>
 	    		<active>1</active>
 	    		<endpoint>/webhook/sales</endpoint>
+	    		<timeout>30</timeout>
 	    	</settings>
     	</furutaerp>
     </default>
