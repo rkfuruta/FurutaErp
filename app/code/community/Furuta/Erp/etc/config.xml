@@ -12,11 +12,45 @@
                 <class>Furuta_Erp_Helper</class>
             </furutaerp>
         </helpers>
+        <blocks>
+            <furutaerp>
+                <class>Furuta_Erp_Block</class>
+            </furutaerp>
+        </blocks>
         <models>
         	<furutaerp>
                 <class>Furuta_Erp_Model</class>
+                <resourceModel>furutaerp_mysql4</resourceModel>
             </furutaerp>
+            <furutaerp_mysql4>
+                <class>Furuta_Erp_Model_Mysql4</class>
+                <entities>        
+                    <log>
+                        <table>furutaerp_order_log</table>
+                    </log>
+                </entities>
+            </furutaerp_mysql4>
         </models>
+        <resources>
+            <furutaerp_setup>
+                <setup>
+                    <module>Furuta_Erp</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </furutaerp_setup>
+            <furutaerp_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </furutaerp_write>
+            <furutaerp_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </furutaerp_read>
+        </resources>
         <events>
 			<sales_order_place_after>
 				<observers>
@@ -29,6 +63,17 @@
 			</sales_order_place_after>
 		</events>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <furuta_erp before="Mage_Adminhtml">Furuta_Erp_Adminhtml</furuta_erp>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <acl>
             <resources>
@@ -49,6 +94,17 @@
                 </admin>
             </resources>
         </acl>
+        <menu>
+            <sales>
+                <children>
+                    <furutaerp translate="title" module="furutaerp">
+                        <sort_order>10</sort_order>
+                        <title>FurutaErp - Logs</title>
+                        <action>adminhtml/log/index</action>
+                    </furutaerp>
+                </children>
+            </sales>
+        </menu>
     </adminhtml>
     <default>
     	<furutaerp>

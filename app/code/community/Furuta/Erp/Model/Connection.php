@@ -9,6 +9,11 @@ class Furuta_Erp_Model_Connection {
 			Mage::log("Order: ".$order->getIncrementId(), null, $this->log_file, true);
 			Mage::log($info, null, $this->log_file, true);
 		}
+		$time = new DateTime();
+		$log = Mage::getModel("furutaerp/log");
+		$log->setOrderId($order->getId());
+		$log->setCreatedAt($time->format("Y-m-d H:i:s"));
+		$log->save();
 		$request = Mage::getModel("furutaerp/request");
 		$result = $request->setUrl(Mage::getStoreConfig("furutaerp/settings/endpoint"))
 					->setHeader(array(
@@ -16,12 +21,36 @@ class Furuta_Erp_Model_Connection {
 					))
 					->setParams($info)
 					->post();
-		if(Mage::getStoreConfigFlag("furutaerp/settings/debug")) {
-			if($request->getHttpCode() == 200) {
+		
+		if($request->getHttpCode() == 200) {
+			$log->setStatus(1);
+			$log->save();
+			if(Mage::getStoreConfigFlag("furutaerp/settings/debug")) {
 				Mage::log("Status: Enviado", null, $this->log_file, true);
-			} else {
+			}
+		} else {
+			if(Mage::getStoreConfigFlag("furutaerp/settings/debug")) {
 				Mage::log("Status: Erro", null, $this->log_file, true);
 			}
+		}
+	}
+
+	public function resend(Furuta_Erp_Model_Log $log) {
+		$order = Mage::getModel("sales/order")->load($log->getOrderId());
+		$info = $this->getData($order);
+		$request = Mage::getModel("furutaerp/request");
+		$result = $request->setUrl(Mage::getStoreConfig("furutaerp/settings/endpoint"))
+					->setHeader(array(
+						"Authorization: Bearer ".Mage::getStoreConfig("furutaerp/settings/api_key")
+					))
+					->setParams($info)
+					->post();
+		if($request->getHttpCode() == 200) {
+			$log->setStatus(1);
+			$log->save();
+		} else {
+			$log->setStatus(0);
+			$log->save();
 		}
 	}
 
