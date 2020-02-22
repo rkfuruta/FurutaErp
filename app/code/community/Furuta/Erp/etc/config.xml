@@ -90,6 +90,15 @@
                                 </config>
                             </children>
                         </system>
+                        <sales>
+                            <children>
+                                <furutaerp>
+                                    <title>Furuta Erp Log Grid</title>
+                                    <sort_order>5</sort_order>
+                                    <action>adminhtml/log</action>
+                                </furutaerp>
+                            </children>
+                        </sales>
                     </children>
                 </admin>
             </resources>

@@ -2,8 +2,7 @@
  
 class Furuta_Erp_Adminhtml_LogController extends Mage_Adminhtml_Controller_Action {
     protected function _isAllowed() {
-        //return Mage::getSingleton('admin/session')->isAllowed('example/examplebackend');
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed('sales/furutaerp');
     }
 
     public function indexAction() {
